@@ -1,0 +1,421 @@
+<html>
+	<head>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+		<meta charset="utf8">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+		<script src="script.js?<?php echo time(); ?>"></script>
+		<link rel="stylesheet" href="style_light.css">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<script src="https://kit.fontawesome.com/81125059b6.js"></script>
+		<meta name="viewport" content="width=500, initial-scale=1">
+		<title>LimbRP | CAD</title>
+		<link rel="shortcut icon" href="https://deadstory.ru/limb/sasp.png?<?php echo time(); ?>" type="image/x-icon">
+	</head>
+
+	<body>
+		<div id="alert_window" style="left: 38vw;top: 26vh;">
+			<div id="alert_title" style="user-select: none;">Error #wrong</div>
+			<div id="alert_content">You shell not pass!</div>
+			<div id="alert_footer">
+				<div class="button" id="alert_next" style="width: 4vw;padding: 0.2vh;font-size: 1.3vh;" onclick='global.alert_next()?console.log("1"):global.sys_a_close();'>OK</div>
+				<div class="button" id="alert_close" style="width: 4vw;padding: 0.2vh;float: right;font-size: 1.3vh;" onclick='global.alert_close();global.sys_a_close();'>Cancel</div>
+			</div>
+		</div>
+		<div id="alert_bg"></div>
+		<div id="main_window" style="border: 1px solid black;margin: 5vh 16%;min-width: 800px;">
+			<div id="text" style="height: 3%;background: white;display: inline-block;width: 100%;">
+   				<div class="logo"></div>
+				<div id="titleblock_title" style="float: left;font-size: 1.2vh;padding: 0.5%;">State of San Andreas Computer Aided Dispatch</div>
+				<div class="micro_button" id="window_btn_exit" style="display: inline-block;float: right;" onclick="logout()">X</div>
+				<div class="micro_button" id="window_btn_help" style="display: inline-block;float: right;" onclick="__east()">?</div>
+				<div class="micro_button" id="window_btn_help" style="display: none;float: right;" onclick="global.changeTheme(this);"></div>
+			</div>
+
+			<div id="window_content" style="font-size: 1.3vh;background: #dcdcdc;">
+				<content style="cursor: default;background: white;width: 100%;display:none;" id="tabsList">
+					<div class="tab" onclick="changeTab(0)"><i class="fas fa-sign-in-alt" aria-hidden="true"></i> Login panel</div>
+					<div class="tab" onclick="changeTab(1)"><i class="fas fa-share-square" aria-hidden="true"></i> Request access</div>
+					<div class="tab" onclick="changeTab(2)"><i class="fas fa-terminal" aria-hidden="true"></i> Terminal</div>
+					<div class="tab" onclick="changeTab(3)"><i class="fas fa-server" aria-hidden="true"></i> Data Base</div>
+					<div class="tab" onclick="changeTab(4)"><i class="fas fa-clipboard" aria-hidden="true"></i> Staff</div>
+					<div class="tab" onclick="changeTab(5)"><i class="fas fa-server" aria-hidden="true"></i> Free slot</div>
+					<div class="tab" onclick="changeTab(6)"><i class="fas fa-dice-d6" aria-hidden="true"></i> Callouts List</div>
+					<div class="tab" onclick="changeTab(7)"><i class="fas fa-address-card" aria-hidden="true"></i> Detail Info <span style="float:right" onclick="global.viewHide();">X</span></div>
+					<div class="tab" onclick="changeTab(8)"><i class="fas fa-address-card" aria-hidden="true"></i> Personal</div>
+					<div class="tab" onclick="location.href='https://monopoly-one.com/';//changeTab(9)"><i class="fas fa-dice"></i> Quest</div>
+					<div class="tab" onclick="changeTab(77)" id="east" style="display:none;"><i class="fas fa-asterisk" style="color: white;" aria-hidden="true"></i> CAD Status</div>
+					<div class="tab" onclick="changeTab(99)" id="east" style="display:none;"><i class="fas fa-asterisk" style="color: white;" aria-hidden="true"></i> Easter Egg</div>
+				</content>
+				<div class="tab_content" id="tab_0" style="min-height: 55vh;height: 82vh;overflow-y: auto;">
+					<div id="login_center" style="margin: 3vh 37%;">
+						<form>
+							<div id="logo" style="background: url(sasp.png);width: 7rem;height: 7rem;background-size: cover;float: left;"></div>
+							<div id="text" style="margin: 0 0 5vh 0;font-size: 1.6vh;text-align: center;padding: 3rem;border-bottom: 1px solid;letter-spacing: 4px;">LOG IN | CAD</div>
+							<input type="email" placeholder="Email / example@gmail.com" autocomplete id="log_email" style="width: 100%;padding: 1vh 1vw;color: white;background: #5a5a5a;font-size: 1.3vh;margin-bottom: 1vh;border: 1px solid white;" onkeypress="return global.keyEvent(this, event);">
+							<input type="password" placeholder="Password" id="log_pasword" autocomplete style="background: #5a5a5a;" onkeypress="return global.keyEvent(this, event);">
+							<div class="button" style="width: 100%;" onclick="login()">Next</div>
+						</form>
+					</div>
+				</div>
+				<div class="tab_content" id="tab_1" style="display: none;height: 82vh;overflow-y: auto;">
+					<div id="login_center" style="margin: 3vh 37%;">
+						<form>
+							<div id="text" style="margin: 0 0 3vh 0;font-size: 1.6vh;text-align: center;padding: 2rem;border-bottom: 1px solid;letter-spacing: 4px;">REQUEST ACCESS TO CAD</div>
+							<input type="email" placeholder="Email / example@gmail.com" autocomplete="" id="reg_email" style="width: 100%;padding: 1vh 1vw;color: white;background: #5a5a5a;font-size: 1.3vh;margin-bottom: 1vh;border: 1px solid white;">
+							<input type="password" placeholder="Desired password / [5 - 32]" id="reg_pasword" autocomplete="" style="">
+							<input type="text" id="reg_fn" placeholder="First Name / Bonny" style="display:none;">
+							<input type="text" id="reg_ln" placeholder="Last Name / Mason" style="display:none;">
+							<input type="text" id="reg_pn" placeholder="Phone Number [000-0000]" style="display:none;">
+							<input type="text" id="reg_rid" placeholder="Real ID [X000XXX]" style="display:none;">
+							<select id="reg_dp" class="form-control unitStatus" style="display:none;margin: 2% 0;user-select: none;">
+								<option selected disabled>Выберите департамент</option>
+								<option value="DOT">Департамент транспорта</option>
+								<option value="ECD">Департамент контроля экстренных ситуаций</option>
+								<option value="BCSO">Офис Шерифа Округа Блэйн</option>
+								<option value="SAHP">Дорожный Патруль Сан Андреас</option>
+								<option value="LSPD">Полицейский Департамент Лос-Сантос</option>
+								<option value="AMR">American Medical Responce Inc.</option>
+						    </select>
+							<input type="text" id="reg_dis" placeholder="Discord [XXXXX#0000]" style="display:none;">
+							<div class="text">* между '[' и ']' указана минимальная, максимальная или фиксированная длинна строки. Так-же указан формат строки.</div>
+							<div class="button" style="width: 100%;" onclick="request(global.req_stage)">Next</div>
+						</form>
+					</div>
+				</div>
+				<div class="tab_content" id="tab_2" style="display: none;height: 82vh;overflow-y: auto;">
+				    <content id="_left_content">
+						
+						<div id="unit_info" style="text-align: center;margin: 1.3vh 0;margin-top: 0;font-size: 1.7vh;font-weight: bold;"></div>
+
+						<div id="button_list">
+				            <div class="button" onclick="" style="float: left;border-right: 0;border-bottom: 0;display: none;">REPORT</div>
+				            <div class="button" onclick="" style="float: right;border-bottom: 0;display: none;">LICENSE</div>
+				            <div class="button" id="panic" onclick="global.panic.toggle()" style="display:none;float: left;width: 70%;	border-right: 3px solid black;">КНОПКА ПАНИКИ</div>
+				            <div class="button" id="signal100" onclick="global.siren.toggle()" style="display:none;float: left;width: 30%;">СИГНАЛ 100</div>
+				            <div id="control_panel" style="display: none;">
+								<input id="control_time" type="text" value="05:00">
+				            	<div id="control_start" onclick="global.timer.play();"><i class="fas fa-play" aria-hidden="true"></i></div>
+				            	<div id="control_stop" onclick="global.timer.stop();"><i class="fas fa-square" aria-hidden="true"></i></div>
+				            </div>
+				        </div>
+
+				        <div id="left_panel">
+							<select class="form-control unitStatus" id="unitStatus" onchange="global.unitChangeStatus(parseInt(this.children[this.selectedIndex].value))" style="color:black;">
+								<option value="0">10-7 | НЕДОСТУПЕН</option>
+								<option value="1">10-6 | ПЕРЕРЫВ</option>
+								<option value="2">10-8 | ДОСТУПЕН</option>
+								<option value="4">10-80 | НА ВЫЗОВЕ</option>
+						    </select>
+						    <div id="controlAsActive" style="display: none;" onclick="global.activeDispatch()">НАЧАТЬ СМЕНУ | АКТИВНЫЙ ДИСПЕТЧЕР</div>
+				            <div id="active_units"></div>
+
+							<div id="selected_unit_info" style="display: none;">
+								<span style="text-align: center;display: grid;">УПРАВЛЕНИЕ ВЫБРАННЫМ ЮНИТОМ</span>
+								<div style="margin: 2% 0;line-height: 2.5vh;">
+									<div class="selected_status button" style="width: 100%;margin: 1vh 0 1vh;padding: 0.5vh 0;background: #5a5a5a;color:white;" onclick="global.unitChangeStatus(0, true)">10-7 | НЕДОСТУПЕН</div>
+									<div class="selected_status button" style="width: 100%;margin: 1vh 0 1vh;padding: 0.5vh 0;background: rgb(255, 187, 63);" onclick="global.unitChangeStatus(1, true)">10-6 | ПЕРЕРЫВ</div>
+									<div class="selected_status button" style="width: 100%;margin: 1vh 0 1vh;padding: 0.5vh 0;background: #34a757;" onclick="global.unitChangeStatus(2, true)">10-8 | ДОСТУПЕН</div>
+									<div class="selected_status button" style="width: 100%;margin: 1vh 0 1vh;padding: 0.5vh 0;background: #4a86e8;" onclick="global.unitChangeStatus(4, true)">10-80 | НА ВЫЗОВЕ</div>
+								    <hr class="selected_status" style="background: white;">
+								    <div id="selected_warn" class="button" style="width: 100%;margin: 1vh 0 1vh;padding: 0.5vh 0;" onclick="global.giveWarn()">Выдать предупреждение +</div>
+								    <div id="selected_decomb" class="button" style="width: 100%;margin: 1vh 0 1vh;padding: 0.5vh 0;" onclick="global.sendSocket({'type':'deCombineUnit','unit':global.selected_units[0]});">Разъединить</div>
+									<div class="button" id="selected_comb" style="width: 100%;margin: 2vh 0 1vh;padding: 1vh 0;" onclick="global.combine()">Объединить</div>
+								</div>
+							</div>
+							<div class="button" id="decombineMe" style="display:none;width: 100%;margin: 2vh 0 1vh;padding: 1vh 0;" onclick='global.sendSocket({type: "deCombineMe"});'>Разъединить меня</div>
+							<div id="secondLeftBlock">
+								<div id="adw" style="text-align: center;padding: 5vh 0;white-space: pre-line;text-shadow: 2px 3px 11px black;border-radius: 10px;border-bottom: 1px solid;"></div>
+								<textarea id="notepad" style="display:none;height: 30vh;" onchange="global.saveNote(this.value);"></textarea>
+								<div id="chatBlock" style="background: gainsboro;display: none;margin: 4vh 6%;width: 87%;height: fit-content;"></div>
+							</div>
+				        </div>
+				    </content>
+				    <content id="center_panel">
+				    	<div id="active_callouts" class="container">
+				    		<div id="titleBlock">
+				    			<i class="fas fa-tasks"></i> Активные вызовы
+				    			<span onclick="blockVisible(this,1)" id="visible_calls" style="font-weight: bold;cursor: pointer;float: right;">HIDE</span>
+				    			<span onclick="global.createCall()" id="new_call" class="ctrlView" style="display:none;font-weight: bold;cursor: pointer;float: right;margin: 0 2%;">NEW</span>
+				    		</div>
+				    		<table class="table table-striped table-dark" id="blockVisible_1">
+								<thead>
+									<tr>
+										<th scope="col">#</th>
+										<th scope="col">Описание</th>
+										<th scope="col">Юниты</th>
+										<th scope="col">Локация</th>
+										<th scope="col">Время</th>
+										<th scope="col">Статус</th>
+										<th class="otherActions" scope="col">Действия</th>
+									</tr>
+								</thead>
+								<tbody id="callouts_list"></tbody>
+							</table>
+							<div id="no_callouts" style="font-size: 1.4vh;text-align: center;margin: 1vh;color: black;">Вызовы отсутствуют.</div>
+				    	</div>
+
+				    	<div class="container">
+				    		<div id="titleBlock">
+				    			<i class="fas fa-clipboard"></i> NCIC | Розыск: Люди
+				    			<span onclick="blockVisible(this,2)" style="font-weight: bold;cursor: pointer;float: right;">HIDE</span>
+				    			<span onclick="global.addWanted(0)" class="noForMedic" style="font-weight: bold;cursor: pointer;float: right;margin: 0 2%;">NEW</span>
+				    		</div>
+				    		<table class="table table-striped table-dark" id="blockVisible_2">
+								<thead>
+									<tr>
+										<th scope="col">RN</th>
+										<th scope="col">Имя Фамилия</th>
+										<th scope="col">Описание</th>
+										<th scope="col">Причина</th>
+										<th scope="col">Последнее местоположение</th>
+										<th scope="col">Добавил</th>
+										<th scope="col" class="_ctrlView">Время создания</th>
+									</tr>
+								</thead>
+								<tbody id="wanted_peds"></tbody>
+							</table>
+				    	</div>
+
+						<div class="container">
+				    		<div id="titleBlock">
+				    			<i class="fas fa-car-alt"></i> NCIC | Розыск: Транспорт
+				    			<span onclick="blockVisible(this,3)" style="font-weight: bold;cursor: pointer;float: right;">HIDE</span>
+				    			<span onclick="global.addWanted(1)" class="noForMedic" style="font-weight: bold;cursor: pointer;float: right;margin: 0 2%;">NEW</span>
+				    		</div>
+				    		<table class="table table-striped table-dark" id="blockVisible_3">
+								<thead>
+									<tr>
+										<th scope="col">VN</th>
+										<th scope="col">MODEL</th>
+										<th scope="col">Описание</th>
+										<th scope="col">Причина</th>
+										<th scope="col">Последнее местоположение</th>
+										<th scope="col">Добавил</th>
+										<th scope="col" class="_ctrlView">Время создания</th>
+									</tr>
+								</thead>
+								<tbody id="wanted_vehs"></tbody>
+							</table>
+				    	</div>
+
+				    	<div id="adminList" class="container" style="display: none;">
+						    <div id="titleBlock">
+							    <i class="fas fa-clipboard-list" aria-hidden="true"></i> Units Actions <span style="color:red;">[ADMIN]</span>
+							    <span onclick="blockVisible(this,4)" style="font-weight: bold;cursor: pointer;float: right;">HIDE</span>
+							</div>
+							<textarea disabled id="blockVisible_4" style="margin-top: 0px;margin-bottom: 0px;height: 20vh;width: 100%;color: #b5b5b5;background: #353a40;padding: 1%;resize: none;">wait broadcasting...</textarea>
+						</div>
+			        </content>
+			    </div>
+
+				<div class="tab_content" id="tab_3" style="display: none;height: 82vh;overflow-y: hidden;">
+					<div id="bd_1" class="searchBy" style="">
+						<div class="button noForMedic" id="button" onclick="global.regPed()" style="width: 100%;margin-bottom: 2vh;">Регистрация Real ID</div>
+						<div id="titleBlock">
+			    			<i class="fas fa-clipboard" aria-hidden="true"></i> База Данных - Человек
+			    		</div>
+						<input type="text" placeholder="Real ID / Имя / Фамилия / Номер телефона" style="width: 100%;padding: 0.8vh 1vw;color: white;background: #5a5a5a;font-size: 1.3vh;margin: 0!important;border: 1px solid white;" oninput="global.searchPed(this.value)">
+						<div class="table-wrapper-scroll-y my-custom-scrollbar">
+							<table class="table table-striped table-dark">
+								<thead>
+									<tr>
+										<th scope="col">Real ID</th>
+										<th scope="col">Имя</th>
+										<th scope="col">Фамилия</th>
+										<th scope="col">Номер телефона</th>
+										<th scope="col">Действия</th>
+									</tr>
+								</thead>
+								<tbody id="search_ped">
+									<tr>
+									    <td>00YYY000</td>
+									    <td>Markus</td>
+									    <td>Bailey</td>
+									    <td>000-0000</td>
+									    <td><span style="color:#de1d1d;cursor:pointer;">редактировать</span></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div id="bd_2" class="searchBy" style="">
+						<div class="button noForMedic" id="button" onclick="global.regCar()" style="width: 100%;margin-bottom: 2vh;">Регистрация нового транспорта</div>
+						<div id="titleBlock">
+			    			<i class="fas fa-clipboard" aria-hidden="true"></i> База Данных - Транспорт
+			    		</div>
+						<input type="text" placeholder="Vin / Владелец / Модель" style="width: 100%;padding: 0.8vh 1vw;color: white;background: #5a5a5a;font-size: 1.3vh;margin: 0!important;border: 1px solid white;" oninput="global.searchVeh(this.value)">
+						<div class="table-wrapper-scroll-y my-custom-scrollbar">
+							<table class="table table-striped table-dark">
+								<thead>
+									<tr>
+										<th scope="col">Vin</th>
+										<th scope="col">Модель</th>
+										<th scope="col">Статус</th>
+										<th scope="col">Владелец</th>
+										<th scope="col">Другое</th>
+									</tr>
+								</thead>
+								<tbody id="search_veh">
+									<tr>
+									    <td>00XXX000</td>
+									    <td>Vapid Caracara</td>
+									    <td>On traffic</td>
+									    <td>00YYY000 / Markus Bailey</td>
+									    <td><span style="color:#de1d1d;cursor:pointer;">редактировать</span></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div id="bd_3" class="searchBy" style=""></div>
+					<div id="bd_4" class="searchBy" style=""></div>
+				</div>
+
+				<div class="tab_content" id="tab_4" style="display: none;height: 82vh;overflow-x: auto;padding: 1vh 1vh;">
+					<div class="button toggleAccept" onclick="global.toggleAccept()" id="forAdmin" style="width: 30%; margin-bottom: 1vh;">Открыть заявки в CAD</div>
+					<div style="display: inline-block;width: 100%;">
+						<table class="table table-striped table-dark">
+							<thead>
+								<tr id="staff_head">
+									<th scope="col">ID</th>
+									<th scope="col">Департамент</th>
+									<th scope="col">Имя Фамилия</th>
+									<th scope="col">Рейтинг сотрудников</th>
+									<th scope="col">Позывной</th>
+									<th scope="col">Ранг</th>
+									<th scope="col">Номер телефона</th>
+									<th scope="col">Badge</th>
+									<th scope="col">Discord</th>
+									<th scope="col">Статус</th>
+								</tr>
+							</thead>
+							<tbody id="staff_table"></tbody>
+						</table>
+					</div>
+				</div>
+
+				<div class="tab_content" id="tab_5" style="display: none;height: 82vh;overflow-y: auto;">
+					TAB5 TOBI PIZDA
+				</div>
+
+				<div class="tab_content" id="tab_6" style="display: none;height: 82vh;overflow-y: auto;">
+					<div class="button" id="callReport" onclick="global.callReport();" style="float: left;width: 30%;margin: 1vh 1vw;">Отчёт об вызове</div>
+					<table class="table table-striped table-dark" style="margin: 0 1vw;width: 97%;">
+						<thead>
+							<tr>
+								<th scope="col">ID</th>
+								<th scope="col">Описание</th>
+								<th scope="col">Последняя локация</th>
+								<th scope="col">Активное время</th>
+								<th scope="col">Начало</th>
+								<th scope="col">Конец</th>
+								<th scope="col">Добавлен</th>
+							</tr>
+						</thead>
+						<tbody id="calloutsLogList">
+						</tbody>
+					</table>
+					<textarea disabled="" id="calloutLog" style="height: 20vh;color: #b5b5b5;background: #3e3e3e;padding: 1%;resize: none;width: auto;width: 50%;margin: 3vh 0 1vh;"></textarea>
+				</div>
+
+				<div class="tab_content" id="tab_7" style="display: none;height: 82vh;overflow-y: auto;padding-bottom: 1vh;padding: 1vh 1vh;"></div>
+				<div class="tab_content" id="tab_8" style="display: none;height: 82vh;overflow-y: auto;padding: 1vh 1vh;width: 100%;"></div>
+				<div class="tab_content" id="tab_77" style="display: none;height: 82vh;overflow-y: auto;padding: 1vh 1vh;width: 100%;">
+					<div id="login_center" style="margin: 3vh 37%;">
+						<form>
+							<div id="logo" style="background: url(sasp.png);width: 7rem;height: 7rem;background-size: cover;float: left;"></div>
+							<div id="text" style="margin: 0 0 5vh 0;font-size: 1.6vh;text-align: center;padding: 3rem;border-bottom: 1px solid;letter-spacing: 4px;">CAD SYSTEM STATUS</div>
+							<div id="text" style="margin: 0 0 5vh 0;font-size: 1.6vh;text-align: center;padding: 3rem;border-bottom: 1px solid;letter-spacing: 4px;padding-top: 0;">БАЗА ДАННЫХ ОТКЛЮЧЕНА.<br><br>ЕСЛИ ЭТО ОШИБКА - СООБЩИТЕ АДМИНИСТРАТОРУ.</div>
+						</form>
+					</div>
+				</div>
+
+				<div class="tab_content" id="tab_9" style="display: none;height: 82vh;overflow-y: auto;">
+					<div id="player1" style="position: absolute;z-index: 1;width: 2vw;height: 2vw;background: url(quest/saspPlayer.png);background-size: cover;background-color: #7380e2;border-radius: 20px;top: 129.094px;left: 299px;transition: all 1.5s ease-out 0s;"></div>
+					<div id="quest_top" style="display: flex;width: 100%;height: fit-content;">
+				        <div class="qSlotVertical" id="quest_slot_top_0" style="width: 9.5vw;">T0</div>
+				        <div class="qSlotVertical" id="quest_slot_top_1">T1</div>
+				        <div class="qSlotVertical" id="quest_slot_top_2">T2</div>
+				        <div class="qSlotVertical" id="quest_slot_top_3">T3</div>
+				        <div class="qSlotVertical" id="quest_slot_top_4">T4</div>
+				        <div class="qSlotVertical" id="quest_slot_top_5">T5</div>
+				        <div class="qSlotVertical" id="quest_slot_top_6">T6</div>
+				        <div class="qSlotVertical" id="quest_slot_top_7">T7</div>
+				        <div class="qSlotVertical" id="quest_slot_top_8">T8</div>
+				        <div class="qSlotVertical" id="quest_slot_top_9">T9</div>
+				        <div class="qSlotVertical" id="quest_slot_top_10">T10</div>
+				        <div class="qSlotVertical" id="quest_slot_top_11">T11</div>
+				        <div class="qSlotVertical" id="quest_slot_top_12" style="width: 9.5vw;">T12</div>
+				    </div>
+					<div id="quest_left" style="display: block;width: 10%;height: fit-content;float: left;">
+				        <div class="qSlotHorizontal" id="quest_slot_left_0">L0</div>
+				        <div class="qSlotHorizontal" id="quest_slot_left_1">L1</div>
+				        <div class="qSlotHorizontal" id="quest_slot_left_2">L2</div>
+				        <div class="qSlotHorizontal" id="quest_slot_left_3">L3</div>
+				        <div class="qSlotHorizontal" id="quest_slot_left_4">L4</div>
+				    </div>
+					<div id="quest_right" style="display: block;width: 10%;height: fit-content;float: right;">
+				        <div class="qSlotHorizontal" id="quest_slot_right_0">R0</div>
+				        <div class="qSlotHorizontal" id="quest_slot_right_1">R1</div>
+				        <div class="qSlotHorizontal" id="quest_slot_right_2">R2</div>
+				        <div class="qSlotHorizontal" id="quest_slot_right_3">R3</div>
+				        <div class="qSlotHorizontal" id="quest_slot_right_4">R4</div>
+				    </div>
+				    <div id="quest_center" style="background: #797979;width: 80%;height: 53.5vh;margin: auto;display: flex;padding: 1vh 1vw;">
+				    	<div id="quest_scroll" style="display: none;position: absolute;font-size: 20vh;background: #797979;letter-spacing: 4vw;margin: 5% 14%;">
+				    		<div id="quest_scroll_1"><i class="fas fa-dice-d6" aria-hidden="true"></i></div>
+				    		<div id="quest_scroll_2"><i class="fas fa-dice-d6" aria-hidden="true"></i></div>
+				    	</div>
+				    	<div id="quest_log"></div>
+				    	<span class="link" onclick="global.player.scroll();" style="font-size: 1.5vh;font-weight: bold;border: 2px solid black;padding: 1vh 1vw;margin-top: 4vh;">DICE IT</span>
+						<div id="quest_info" style="display: inline-block;height: fit-content;margin: 5vh 1vw;font-size: 1.5vh;font-weight: bold;"></div>
+				    </div>
+					<div id="quest_bottom" style="display: flex;width: 100%;height: fit-content;">
+				        <div class="qSlotVertical" id="quest_slot_bottom_0" style="width: 9.5vw;">B0</div>
+				        <div class="qSlotVertical" id="quest_slot_bottom_1">B1</div>
+				        <div class="qSlotVertical" id="quest_slot_bottom_2">B2</div>
+				        <div class="qSlotVertical" id="quest_slot_bottom_3">B3</div>
+				        <div class="qSlotVertical" id="quest_slot_bottom_4">B4</div>
+				        <div class="qSlotVertical" id="quest_slot_bottom_5">B5</div>
+				        <div class="qSlotVertical" id="quest_slot_bottom_6">B6</div>
+				        <div class="qSlotVertical" id="quest_slot_bottom_7">B7</div>
+				        <div class="qSlotVertical" id="quest_slot_bottom_8">B8</div>
+				        <div class="qSlotVertical" id="quest_slot_bottom_9">B9</div>
+				        <div class="qSlotVertical" id="quest_slot_bottom_10">B10</div>
+				        <div class="qSlotVertical" id="quest_slot_bottom_11">B11</div>
+				        <div class="qSlotVertical" id="quest_slot_bottom_12" style="width: 9.5vw;">B12</div>
+				    </div>
+				</div>
+
+				<div class="tab_content" id="tab_99" style="display: none;height: 82vh;overflow-y: auto;">
+					<video preload="none" src="/limb/easteregg.mp4" style="width: 100%;height: 75vh;"></video>
+				</div>
+				<div class="bottonTabBlock" style="display:none;">
+			    	<div onclick="global.onSecondBlockChange('ad',this)" class="bottomTab bottomTab_selected" style="padding: 0.5vh 0.2vw 0.5vh 0.5vw;"><i class="fas fa-ad" aria-hidden="true"></i></div>
+				    <div onclick="global.onSecondBlockChange('notepad',this)" class="bottomTab" style="padding: 0.6vh 0.2vw 0.5vh 0.6vw;"><i aria-hidden="true" class="fas fa-sticky-note"></i></div>
+				    <div onclick="global.onSecondBlockChange('chat',this)" class="bottomTab" style="display:none;padding: 0.7vh 0.6vw 0.5vh 0.6vw;"><i class="fas fa-trophy"></i></div>
+				</div>
+			</div>
+		</div>
+		<audio id="siren100" style="display:none;" src="/limb/100.mp3"></audio>
+		<audio id="panicSiren" style="display:none;" src="/limb/panic.mp3"></audio>
+		<audio id="connected" style="display:none;" src="/limb/connected.mp3"></audio>
+		<audio id="restart" style="display:none;" src="/limb/restart.mp3"></audio>
+		<form enctype="multipart/form-data" id="formDS" action="upload.php" method="POST" style="display: none;">
+			<input type="text" name="link" id="linkIMAGE">
+			<input type="file" name="userfile" id="uploadFile" onchange='global.image = global.generator(8,"qwertyuiopasdfghjklzxcvbnm");$("#linkIMAGE").val(global.image+".png");global.fileUpdate();'>
+			<input type="submit" value="Отправить файл" />
+		</form>
+		
+		<div id="flash_notif" style="display: none;">
+        	<i class="fas fa-exclamation-triangle"></i>
+        	<div style="display: inline-block;width: 85%;height: 100%;position: inherit;padding: 1%;font-size: 1.4vh;margin-left: 14%;color: white;text-align: -webkit-center;">
+        		<span id="flash_msg"></span>
+        		<br>
+	        	<span id="flash_desc"></span>
+	        </div>
+	        <div class="under_line"></div>
+	    </div>
+	</body>
+</html>
