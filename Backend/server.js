@@ -525,7 +525,7 @@ global.callouts = {
 // bot.on('ready', () => {
 //     bot.user.setActivity("LimbRP", { type: 'PLAYING' });
 // });
-// bot.login('NTg0MDY4MjgxNzg3MjE5OTc4.XPqs6g.rMxyxmUbFh4HQQMvC6nx4D8R6ZY');
+// bot.login('#DiscordToken');
 // bot.on('message', message => {
 //     let sender = message.author.username+"#"+message.author.discriminator;
 //     let args = message.content.split(" ");
@@ -656,10 +656,10 @@ global.panic = {
 
 let rConn = () => {
     mysql = require("mysql2").createConnection({
-        host: "localhost",
-        user: "root",
-        database: "limb",
-        password: "шо?"
+        host: "#host",
+        user: "#user",
+        database: "#db",
+        password: "#pass"
     });
     mysql.connect(function(err){
         if (err) {
